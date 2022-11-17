@@ -11,4 +11,4 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Run API Tests
-        run: newman run "Tests Demo.postman_collection.json" -e "Tests_Demo.postman_environment.json" --disable-unicode --reporters cli,htmlextra,junit --env-var "apiKey=$apiKey"
+        run: newman run "Tests Demo.postman_collection.json" -e "Tests_Demo.postman_environment.json" --disable-unicode --reporters cli,htmlextra,junit --env-var "apiKey=${{ secrets.APIKEY }}"
