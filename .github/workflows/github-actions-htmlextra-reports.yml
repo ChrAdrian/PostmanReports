@@ -29,7 +29,7 @@ jobs:
         
    # Run the POSTMAN collection
       - name: Run API Tests
-        run: newman run "Tests Demo.postman_collection.json" -e "Tests_Demo.postman_environment.json" --disable-unicode --reporters cli,htmlextra,junit --reporter-htmlextra-export testResults/htmlreport.html || true
+        run: newman run "Tests Demo.postman_collection.json" -e "Tests_Demo.postman_environment.json" --env-var "apiKey=$apiKey" --disable-unicode --reporters cli,htmlextra,junit --reporter-htmlextra-export testResults/htmlreport.html || true
 
     # Upload the contents of Test Results directory to workspace
       - name: Output the run Details
