@@ -15,20 +15,11 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: '19.2'
+          cache: 'npm'
     
    # Install the Newman command line utility
       - name: Install Newman
         run: npm install -g newman
-        
-   # Cache the Html Extra Reporter installation to improve performance.    
-      - name: Cache newman-reporter-htmlextra
-        id: Newman-Reporter-Htmlextra-cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-newman-reporter-htmlextra-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-newman-reporter-htmlextra-
         
    # Install the newman-reporter-htmlextra command line utility
       - name: Install newman-reporter-htmlextra
