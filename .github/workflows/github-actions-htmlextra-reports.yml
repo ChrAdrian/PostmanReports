@@ -15,12 +15,13 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: '19.2'
+          cache: 'npm'
    
    # Cache the node_modules directory to improve performance
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: ~/.cache/node
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -35,7 +36,7 @@ jobs:
         uses: actions/cache@v3
         id: Newman-cache
         with:
-          path: ~/.cache/newman
+          path: ~/.npm
           key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-
@@ -50,7 +51,7 @@ jobs:
         uses: actions/cache@v3
         id: Newman-Reporter-Htmlextra-cache
         with:
-          path: ~/.cache/Newman-Reporter-Htmlextra
+          path: ~/.npm
           key: ${{ runner.os }}-newman-reporter-htmlextra-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-reporter-htmlextra-
