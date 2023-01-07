@@ -16,6 +16,9 @@ jobs:
         with: 
           node-version: '19.2'
           
+      - name: Newman Version
+        run: newman -v
+      
    # Cache the Newman and Newman-Reporter-Htmlextra utilities to improve performance
       - name: Cache Newman and Newman-Reporter-Htmlextra
         id: newman-and-newman-reporter-htmlextra-cache
@@ -25,6 +28,9 @@ jobs:
           key: ${{ runner.os }}-newman-and-newman-reporter-htmlextra-cache-
           restore-keys: |
             ${{ runner.os }}-newman-and-newman-reporter-htmlextra-cache-
+            
+      - name: Newman Version
+        run: newman -v
     
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
@@ -32,6 +38,9 @@ jobs:
         run: |
               npm install -g newman
               npm install -g newman-reporter-htmlextra
+              
+      - name: Newman Version
+        run: newman -v
           
    # Make directory to upload the test results
       - name: Make Directory for results
