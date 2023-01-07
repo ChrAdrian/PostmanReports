@@ -15,9 +15,20 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: '19.2'
+          
+   # Cache the Newman and newman-reporter-htmlextra utilities to improve performance
+      - name: Cache Newman and newman-reporter-htmlextra
+        id: newman-and-newman-reporter-htmlextra-cache
+        uses: actions/cache@v3
+        with:
+          path: ~.npm
+          key: ${{ runner.os }}-newman-and-newman-reporter-htmlextra-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-newman-and-newman-reporter-htmlextra-cache-
     
-   # Install the Newman command line utility
-      - name: Install Newman
+   # Install the Newman and newman-reporter-htmlextra command line utilities
+      - name: Install Newman and newman-reporter-htmlextra
+        if: steps.newman-and-newman-reporter-htmlextra-cache.outputs.cache-hit != 'true'
         run: |
               npm install -g newman
               npm install -g newman-reporter-htmlextra
