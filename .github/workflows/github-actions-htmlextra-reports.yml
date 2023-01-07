@@ -10,17 +10,7 @@ jobs:
    # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it 
       - uses: actions/checkout@v3
       
-   # Cache node modules
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
-      
-   # Install Node on the runner
+   # Setup Node on the runner
       - name: Install Node
         uses: actions/setup-node@v3
         with: 
@@ -39,9 +29,22 @@ jobs:
    # Install the Newman command line utility
       - name: Install Newman
         if: steps.Newman-cache.outputs.cache-hit != 'true'
-        run: |
-              npm install -g newman
-              npm install -g newman-reporter-htmlextra
+        run: npm install -g newman
+              
+   # Cache the newman-reporter-htmlextra installation to improve performance.
+      - name: Cache newman-reporter-htmlextra
+        uses: actions/cache@v3
+        id: newman-reporter-htmlextra-cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-newman-reporter-htmlextra-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-newman-reporter-htmlextra-          
+    
+   # Install the newman-reporter-htmlextra command line utility
+      - name: Install newman-reporter-htmlextra
+        if: steps.newman-reporter-htmlextra-cache.outputs.cache-hit != 'true'
+        run: npm install -g newman-reporter-htmlextra
           
    # Make directory to upload the test results
       - name: Make Directory for results
