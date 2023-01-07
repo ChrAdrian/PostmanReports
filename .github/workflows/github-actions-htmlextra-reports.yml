@@ -25,11 +25,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
     
-   # Install the Newman command line utility and also install the html extra reporter
+   # Install the Newman command line utility
       - name: Install Newman
-        run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
+        run: npm install -g newman
           
    # Cache the Newman installation to improve performance.
       - name: Cache Newman
@@ -39,6 +37,19 @@ jobs:
           key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-
+            
+   # Install the Html Extra Reporter       
+      - name: Install newman-reporter-htmlextra
+        run: npm install -g newman-reporter-htmlextra
+        
+   # Cache the Html Extra Reporter installation to improve performance.    
+      - name: Cache newman-reporter-htmlextra
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-newman-reporter-htmlextra-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-newman-reporter-htmlextra-
           
    # Make directory to upload the test results
       - name: Make Directory for results
