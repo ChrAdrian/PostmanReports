@@ -16,7 +16,7 @@ jobs:
         with: 
           node-version: '19.2'
           cache: 'npm'
-          cache-dependency-path: '~/.npm'
+          cache-dependency-path: subdir/package-lock.json
     
    # Install the Newman command line utility
       - name: Install Newman
