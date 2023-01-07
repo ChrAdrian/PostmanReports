@@ -7,7 +7,7 @@ jobs:
   test-api:
     runs-on: ubuntu-latest
     steps:
-   # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it 
+   # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v3
       
    # Setup Node on the runner
@@ -16,29 +16,17 @@ jobs:
         with: 
           node-version: '19.2'
           
-      - name: Newman Version
-        run: newman -v
-      
-   # Cache the Newman and Newman-Reporter-Htmlextra utilities to improve performance
-      - name: Cache Newman and Newman-Reporter-Htmlextra
-        id: newman-and-newman-reporter-htmlextra-cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-newman-and-newman-reporter-htmlextra-cache-
-          restore-keys: |
-            ${{ runner.os }}-newman-and-newman-reporter-htmlextra-cache-
-            
-      - name: Newman Version
-        run: newman -v
-    
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
-        if: steps.newman-and-newman-reporter-htmlextra-cache.outputs.cache-hit != 'true'
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: npm i -g newman newman-reporter-htmlextra
-              
-      - name: Newman Version
-        run: newman -v
+          
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: node-modules-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           
    # Make directory to upload the test results
       - name: Make Directory for results
