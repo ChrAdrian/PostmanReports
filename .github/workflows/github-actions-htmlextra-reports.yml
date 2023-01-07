@@ -35,9 +35,7 @@ jobs:
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
         if: steps.newman-and-newman-reporter-htmlextra-cache.outputs.cache-hit != 'true'
-        run: |
-              npm install -g newman
-              npm install -g newman-reporter-htmlextra
+        run: npm i -S newman newman-reporter-htmlextra
               
       - name: Newman Version
         run: newman -v
