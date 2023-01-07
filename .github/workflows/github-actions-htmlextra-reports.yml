@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache@v3
         id: Newman-cache
         with:
-          path: Newman-cache
+          path: ~/.npm
           key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-          
@@ -36,7 +36,7 @@ jobs:
         uses: actions/cache@v3
         id: Newman-Reporter-Htmlextra-cache
         with:
-          path: Newman-Reporter-Htmlextra-cache
+          path: ~/.npm
           key: ${{ runner.os }}-newman-reporter-htmlextra-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-reporter-htmlextra-    
