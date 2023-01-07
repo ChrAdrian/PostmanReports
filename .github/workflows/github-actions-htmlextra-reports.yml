@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-newman-
             
-   # Install the Html Extra Reporter       
+   # Install the Html Extra Reporter        
       - name: Install newman-reporter-htmlextra
         run: npm install -g newman-reporter-htmlextra
         if: steps.Newman-Reporter-Htmlextra-cache.outputs.cache-hit != 'true'
