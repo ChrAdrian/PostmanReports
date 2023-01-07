@@ -20,37 +20,37 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: ~/.cache/node
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
     
    # Install the Newman command line utility
       - name: Install Newman
-        run: npm install -g newman
         if: steps.Newman-cache.outputs.cache-hit != 'true'
+        run: npm install -g newman
           
    # Cache the Newman installation to improve performance.
       - name: Cache Newman
         uses: actions/cache@v3
         id: Newman-cache
         with:
-          path: ~/.cache/newman
+          path: ~/.npm
           key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-
             
    # Install the Html Extra Reporter        
       - name: Install newman-reporter-htmlextra
-        run: npm install -g newman-reporter-htmlextra
         if: steps.Newman-Reporter-Htmlextra-cache.outputs.cache-hit != 'true'
+        run: npm install -g newman-reporter-htmlextra
         
    # Cache the Html Extra Reporter installation to improve performance.    
       - name: Cache newman-reporter-htmlextra
         uses: actions/cache@v3
         id: Newman-Reporter-Htmlextra-cache
         with:
-          path: ~/.cache/Newman-Reporter-Htmlextra
+          path: ~/.npm
           key: ${{ runner.os }}-newman-reporter-htmlextra-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-reporter-htmlextra-
