@@ -1,4 +1,4 @@
-# This workflow will help you to produce an HTML extra test results report
+# This workflow produces an HTML extra test results report
 
 name: Newman Tests
 on: [pull_request]
@@ -7,23 +7,40 @@ jobs:
   test-api:
     runs-on: ubuntu-20.04
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+   # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v3
       
-   # INstall Node on the runner
+   # Install Node on the runner
       - name: Install Node
         uses: actions/setup-node@v3
         with: 
           node-version: '19.2'
-
+   
+   # Cache the node_modules directory to improve performance
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
     
-    # Install the newman command line utility and also install the html extra reporter
+   # Install the Newman command line utility and also install the html extra reporter
       - name: Install newman
         run: |
           npm install -g newman
           npm install -g newman-reporter-htmlextra
           
-    # Make directory to upload the test results
+   # Cache the Newman installation to improve performance.
+      - name: Cache Newman
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-newman-
+          
+   # Make directory to upload the test results
       - name: Make Directory for results
         run: mkdir -p testResults
         
