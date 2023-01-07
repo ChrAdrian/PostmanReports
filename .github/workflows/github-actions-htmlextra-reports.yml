@@ -32,7 +32,6 @@ jobs:
         
    # Install the newman-reporter-htmlextra command line utility
       - name: Install newman-reporter-htmlextra
-        if: steps.Newman-Reporter-Htmlextra-cache.outputs.cache-hit != 'true'
         run: npm install -g newman-reporter-htmlextra
           
    # Make directory to upload the test results
