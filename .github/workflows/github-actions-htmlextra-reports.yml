@@ -16,7 +16,7 @@ jobs:
         with: 
           node-version: '19.2'
           cache: 'npm'
-          cache-dependency-path: ~/package-lock.json
+          cache-dependency-path: '**/package-lock.json'
    
    # Cache the node_modules directory to improve performance
       - name: Cache node_modules
