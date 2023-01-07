@@ -5,10 +5,20 @@ on: [pull_request]
 
 jobs:
   test-api:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
    # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v3
+      
+   # Cache node modules
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
       
    # Install Node on the runner
       - name: Install Node
