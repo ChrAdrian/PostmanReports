@@ -18,7 +18,7 @@ jobs:
    
    # Cache the node_modules directory to improve performance
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -33,7 +33,7 @@ jobs:
           
    # Cache the Newman installation to improve performance.
       - name: Cache Newman
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
