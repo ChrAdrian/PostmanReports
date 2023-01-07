@@ -26,7 +26,7 @@ jobs:
             ${{ runner.os }}-node-
     
    # Install the Newman command line utility and also install the html extra reporter
-      - name: Install newman
+      - name: Install Newman
         run: |
           npm install -g newman
           npm install -g newman-reporter-htmlextra
@@ -48,7 +48,7 @@ jobs:
       - name: Run API Tests
         run: newman run "Tests Demo.postman_collection.json" -e "Tests_Demo.postman_environment.json" --env-var "apiKey=${{ secrets.APIKEY }}" --disable-unicode --reporters cli,htmlextra,junit --reporter-htmlextra-export testResults/htmlreport.html || true
 
-    # Upload the contents of Test Results directory to workspace
+   # Upload the contents of Test Results directory to workspace
       - name: Output the run Details
         uses: actions/upload-artifact@v3
         with: 
