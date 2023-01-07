@@ -18,9 +18,10 @@ jobs:
    
    # Cache the node_modules directory to improve performance
       - name: Cache node_modules
+        id: cache-nodemodules
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
