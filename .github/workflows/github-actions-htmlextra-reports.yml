@@ -20,7 +20,7 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: ~/.cache/node
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache@v3
         id: Newman-cache
         with:
-          path: ~/.npm
+          path: ~/.cache/newman
           key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-
@@ -50,7 +50,7 @@ jobs:
         uses: actions/cache@v3
         id: Newman-Reporter-Htmlextra-cache
         with:
-          path: ~/.npm
+          path: ~/.cache/Newman-Reporter-Htmlextra
           key: ${{ runner.os }}-newman-reporter-htmlextra-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-newman-reporter-htmlextra-
