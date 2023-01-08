@@ -7,7 +7,7 @@ jobs:
   test-api:
     runs-on: ubuntu-latest
     steps:
-   # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it 
+   # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v3
       
    # Setup Node on the runner
@@ -15,28 +15,9 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: '19.2'
-          
-      - name: Cache node modules
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-                          ${{ runner.os }}-npm-cache-
-                          
-      - name: Restore dependencies
-        id: restore
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-restore-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-                          ${{ runner.os }}-npm-restore-
-          
+
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
-        if: steps.restore.cache-hit != 'true'
         run: npm i -g newman newman-reporter-htmlextra
           
    # Make directory to upload the test results
