@@ -20,8 +20,8 @@ jobs:
         uses: actions/cache@v3
         id: node-modules-cache
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-
+          path: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
