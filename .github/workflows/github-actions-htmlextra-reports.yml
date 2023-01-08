@@ -16,13 +16,13 @@ jobs:
         with: 
           node-version: '19.2'
       
-      - run: npm ci
-      
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.os }}-dependencies-${{ hashFiles('**/package-lock.json') }}
+          
+      - run: npm ci
           
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
