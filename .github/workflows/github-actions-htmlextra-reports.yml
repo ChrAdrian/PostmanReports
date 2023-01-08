@@ -17,11 +17,22 @@ jobs:
           node-version: '19.2'
           
       - name: Cache node modules
+        id: cache
         uses: actions/cache@v3
-        id: node-modules-cache
         with:
-          path: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+                          ${{ runner.os }}-npm-
+                          
+      - name: Restore dependencies
+        id: restore
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+                          ${{ runner.os }}-npm-
           
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
