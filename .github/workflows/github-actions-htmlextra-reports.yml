@@ -23,7 +23,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-                          ${{ runner.os }}-npm-cache-
+                          ${{ runner.os }}-npm-
                           
       - name: Restore dependencies
         id: restore
@@ -32,7 +32,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-npm-restore-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-                          ${{ runner.os }}-npm-restore-
+                          ${{ runner.os }}-npm-
           
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
