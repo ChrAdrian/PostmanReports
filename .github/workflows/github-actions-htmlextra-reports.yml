@@ -15,28 +15,9 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: '19.2'
-          
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-newman-
-            
-      - name: Restore dependencies
-        id: restore
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-newman-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-newman-
 
    # Install the Newman and newman-reporter-htmlextra command line utilities
       - name: Install Newman and Newman-Reporter-Htmlextra
-        if: steps.restore.outputs.cache-hit != 'true'
         run: npm i -g newman newman-reporter-htmlextra
           
    # Make directory to upload the test results
